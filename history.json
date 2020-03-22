@@ -1,0 +1,14 @@
+{
+    "./static/data\\Allergic_Contact_Dermatitis\\0.jpg": "normal",
+    "./static/data\\Allergic_Contact_Dermatitis\\1.jpg": "normal",
+    "./static/data\\Allergic_Contact_Dermatitis\\10.jpg": "other",
+    "./static/data\\Allergic_Contact_Dermatitis\\100.jpg": "normal",
+    "./static/data\\Allergic_Contact_Dermatitis\\101.jpg": "remove",
+    "./static/data\\Allergic_Contact_Dermatitis\\102.jpg": "normal",
+    "./static/data\\Allergic_Contact_Dermatitis\\103.jpg": "normal",
+    "./static/data\\Allergic_Contact_Dermatitis\\104.jpg": "other",
+    "./static/data\\Allergic_Contact_Dermatitis\\105.jpg": "other",
+    "./static/data\\Allergic_Contact_Dermatitis\\106.jpg": "remove",
+    "./static/data\\Allergic_Contact_Dermatitis\\107.jpg": "remove",
+    "./static/data\\Allergic_Contact_Dermatitis\\108.jpg": "normal"
+}

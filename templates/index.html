@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <br><br>
+                <form action="http://localhost:6006/label" method="post">
+                    <input type = "text" name = "name" id="img_name" class="form-control" value={{ name }}>
+                    <div class="checkbox form-group">
+                        <label>
+                            <label for="label0">Normal<input id="label0" class="form-control" type="radio" name="label" value="normal" checked></label>
+                            <label for="label1">Remove <input id="label1" class="form-control" type="radio"name="label" value="remove"></label>
+                            <label for="label2">Other <input id="label2" class="form-control" type="radio" name="label" value="other"></label>
+                        </label>
+                      </div>
+                    <input type='submit' id='retrieve' class="btn btn-default" style="width:100%;"></button>
+                </form>
+            </div>
+            <div class="col-md-3" style="width: auto;">
+                <b id="show_img_name" class="text-center">{{ name }}</b><br>
+                <img id="myimg" style="height: 400px;;" src={{ name }}>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4" style="overflow-y:scroll; height:200px;"> 
+                <b class="text-center">History</b>
+                <table class=" table-hover table table-responsive table-striped">
+                    <tbody>
+                        {% for key, val in history.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ val }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</body>
+<!-- <script>
+    $(document).ready(function () {
+        $('#retrieve').click(function () {
+            $.ajax({
+                url: "{{ url_for ('getimage') }}",
+                type: "GET",
+                success: function (response) {
+                    $("#myimg").attr('src', response);
+                    $("#img_name").attr('value', response);
+                    $("#show_img_name").text(response);
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                }
+            });
+        });
+    });
+</script> -->
+
+</html>
