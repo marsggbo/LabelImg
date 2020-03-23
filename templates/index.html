@@ -37,7 +37,7 @@
                 <b class="text-center">History</b>
                 <table class=" table-hover table table-responsive table-striped">
                     <tbody>
-                        {% for key, val in history.items() %}
+                        {% for key, val in history[-20:] %}
                         <tr>
                             <td>{{ key }}</td>
                             <td>{{ val }}</td>

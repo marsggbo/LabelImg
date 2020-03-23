@@ -9,7 +9,16 @@ app = Flask(__name__)
 global HISTORY
 global IT_IMGs
 
-IMGs = sorted(glob.glob('./static/data/*/*.jpg'))
+# IMGs = sorted(glob.glob('./static/data/*/*.jpg'))
+classes = ['cyst',
+           'Folliculitis',
+           'Post_Inflammatory_Hyperpigmentation',
+           'Skn_tag',
+           'vitiligo']
+IMGs = []
+for c in classes:
+    IMGs.extend(glob.glob(f'./static/data/{c}/*.jpg'))
+IMGs = sorted(IMGs)
 IT_IMGs = iter(IMGs)
 
 with open('history.json', 'r') as f:
@@ -22,8 +31,9 @@ def main():
         name = next(IT_IMGs)
         while name in HISTORY:
             name = next(IT_IMGs)
-        return render_template('index.html', name=name, history=HISTORY)
+        return render_template('index.html', name=name, history=list(HISTORY.items()))
     except (Exception, SystemExit, KeyboardInterrupt, GeneratorExit) as e:
+    # except KeyboardInterrupt as e:
         print(str(e))
         with open('history.json', 'w') as f:
             json.dump(HISTORY, f, indent=4)
