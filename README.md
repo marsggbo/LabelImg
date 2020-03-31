@@ -13,4 +13,5 @@ Using Flask to label image
 
 # Todo
 
-撤回上一轮操作
+- [ ] 撤回上一轮操作
+- [ ] 左右键切换图片
