@@ -10,3 +10,7 @@ Using Flask to label image
 # Demo
 
 ![](./demo.jpg)
+
+# Todo
+
+撤回上一轮操作

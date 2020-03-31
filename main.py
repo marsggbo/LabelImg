@@ -9,15 +9,15 @@ app = Flask(__name__)
 global HISTORY
 global IT_IMGs
 
-# IMGs = sorted(glob.glob('./static/data/*/*.jpg'))
-classes = ['cyst',
-           'Folliculitis',
-           'Post_Inflammatory_Hyperpigmentation',
-           'Skn_tag',
-           'vitiligo']
-IMGs = []
-for c in classes:
-    IMGs.extend(glob.glob(f'./static/data/{c}/*.jpg'))
+IMGs = sorted(glob.glob('./static/data/*/*.jpg'))
+# classes = ['cyst',
+#            'Folliculitis',
+#            'Post_Inflammatory_Hyperpigmentation',
+#            'Skn_tag',
+#            'vitiligo']
+# IMGs = []
+# for c in classes:
+#     IMGs.extend(glob.glob(f'./static/data/{c}/*.jpg'))
 IMGs = sorted(IMGs)
 IT_IMGs = iter(IMGs)
 
