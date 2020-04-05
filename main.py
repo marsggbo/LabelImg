@@ -30,8 +30,9 @@ def main():
     try:
         name = next(IT_IMGs)
         while name in HISTORY:
-            name = next(IT_IMGs)
-        return render_template('index.html', name=name, history=list(HISTORY.items()))
+            name = next(IT_IMGs).replace(r'\\', '/')
+            return render_template('index.html', name=name, history=list(HISTORY.items()))
+        return 'finish'
     except (Exception, SystemExit, KeyboardInterrupt, GeneratorExit) as e:
     # except KeyboardInterrupt as e:
         print(str(e))
