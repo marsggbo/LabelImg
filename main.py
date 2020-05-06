@@ -9,59 +9,62 @@ app = Flask(__name__)
 global HISTORY
 global IT_IMGs
 
-IMGs = sorted(glob.glob('./static/data/*/*.jpg'))
-# classes = ['cyst',
-#            'Folliculitis',
-#            'Post_Inflammatory_Hyperpigmentation',
-#            'Skn_tag',
-#            'vitiligo']
-# IMGs = []
-# for c in classes:
-#     IMGs.extend(glob.glob(f'./static/data/{c}/*.jpg'))
-IMGs = sorted(IMGs)
-IT_IMGs = iter(IMGs)
+patients = sorted(os.listdir('./static/NCP/'))
+slices = {}
+for patient in patients:
+    patient_path = f"./static/NCP/{patient}"
+    for scan in sorted(os.listdir(patient_path)):
+        scan_path = f"{patient_path}/{scan}"
+        imgs = []
+        for img in sorted(os.listdir(scan_path)):
+            imgs.append(f"{scan_path}/{img}")
+        slices[scan_path] = imgs
 
-with open('history.json', 'r') as f:
-    HISTORY = json.load(f)
+global index
+global path_imgs
 
+index = 0
+path_imgs = list(slices.items())
 
 @app.route("/")
 def main():
     try:
-        name = next(IT_IMGs)
-        while name in HISTORY:
-            name = next(IT_IMGs).replace(r'\\', '/')
-            return render_template('index.html', name=name, history=list(HISTORY.items()))
-        return 'finish'
+        data = path_imgs[index]
+        path, images = data
+        return render_template('index.html', path=path, images=images)
     except (Exception, SystemExit, KeyboardInterrupt, GeneratorExit) as e:
-    # except KeyboardInterrupt as e:
         print(str(e))
-        with open('history.json', 'w') as f:
-            json.dump(HISTORY, f, indent=4)
-        return str(e)
-    finally:
-        print("Saving history ...")
-        with open('history.json', 'w') as f:
-            json.dump(HISTORY, f, indent=4)
 
 @app.route("/getimage")
 def getimage():
-    name = next(IT_IMGs)
+    name = next(path_imgs)
     return name
 
 @app.route('/label', methods = ['POST', 'GET'])
 def label():
+    global index
     if request.method == 'POST':
-        name = request.form['name']
+        specify_index = request.form['idx']
         label = request.form['label']
-        print(name, label)
-        HISTORY[name] = label
+        if label == 'pre':
+            index -= 1
+        elif label == 'next':
+            index += 1
+        if index < 0: index = len(path_imgs) - 1
+        if index > len(path_imgs) - 1: index = 0
+        if specify_index:
+            index = int(specify_index)
+        print(index, label)
         return redirect(url_for('main'))
     else:
-        name = request.args.get('name')
         label = request.args.get('label')
-        print(name, label)
-        HISTORY[name] = label
+        if label == 'pre':
+            index -= 1
+        elif label == 'next':
+            index += 1
+        if index < 0: index = len(path_imgs) - 1
+        if index > len(path_imgs) - 1: index = 0
+        print(label)
         return redirect(url_for('main'))
 
 

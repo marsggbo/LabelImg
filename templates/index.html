@@ -6,68 +6,66 @@
         $(document).keyup(function(event){
             switch(event.keyCode) {
                 case 13:
-                $("#retrieve").click();
+                    $("#retrieve").click();
+                case 37: // left
+                    $("#label0").prop("checked", true);
                 return;
-                case 65:
-                $("#label0").prop("checked", true);
-                // $("#a").text('Normal');
-                return;
-                case 83:
-                $("#label1").prop("checked", true);
-                // $("#a").text('Remove');
-                return;
-                case 68:
-                $("#label2").prop("checked", true);
-                // $("#a").text('Other');
+                case 39: // left
+                    $("#label1").prop("checked", true);
                 return;
             }
         });
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .image_display {
+            display: block;
+            margin: 2em auto;
+            background-color: #444;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            padding: 10px;
+        }
+        img {
+            display: block;
+            width: 150px;
+            height: 150px;
+            float: left;
+            margin-left: 4px;
+            margin-top: 4px;
+        }
+    </style>
 </head>
 
 <body>
     <br><br>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
             <div class="col-md-4">
-                <br><br>
                 <form action="http://localhost:6006/label" method="post">
-                    <input type = "text" name = "name" id="img_name" class="form-control" value={{ name }}>
+                    <input type = "text" name = "idx" id="img_name" class="form-control" value={{ name }}>
                     <div class="checkbox form-group">
                         <label>
-                            <label for="label0">Normal<input id="label0" class="form-control" type="radio" name="label" value="normal" checked></label>
-                            <label for="label1">Remove <input id="label1" class="form-control" type="radio"name="label" value="remove"></label>
-                            <label for="label2">Other <input id="label2" class="form-control" type="radio" name="label" value="other"></label>
+                            <label for="label0">←(Previous)<input id="label0" class="form-control" type="radio" name="label" value="pre" checked></label>
+                            <label for="label1">→(Next)<input id="label1" class="form-control" type="radio" name="label" value="next"></label>
+                            <!-- <label for="label2">Other <input id="label2" class="form-control" type="radio" name="label" value="other"></label> -->
                         </label>
                       </div>
-                    <input type='submit' id='retrieve' class="btn btn-default" style="width:100%;"></button>
+                      <b id="show_img_name" class="text-center">Path: {{ path }}</b>
+                    <input type='submit' id='retrieve' class="btn btn-default" style="width:100%;display: none;;"></button>
                 </form>
             </div>
-            <div class="col-md-3" style="width: auto;">
-                <b id="show_img_name" class="text-center">{{ name }}</b><br>
-                <img id="myimg" style="height: 400px;;" src={{ name }}>
-            </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
 
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-1"><b class="text-center">History</b></div>
-            <div class="col-md-4" style="overflow-y:scroll; height:200px;"> 
-                <table class=" table-hover table table-responsive table-striped">
-                    <tbody>
-                        {% for key, val in history[-20:] %}
-                        <tr>
-                            <td>{{ key }}</td>
-                            <td>{{ val }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="col-md-10 image_display">
+                {% for image in images %}
+                <img src={{image}}/>
+                {% endfor %}
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-1"></div>
         </div>
     </div>
 </body>
