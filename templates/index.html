@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
         .image_display {
-            display: block;
+            /* display: block; */
             margin: 2em auto;
             background-color: #444;
             box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -27,11 +27,17 @@
         }
         img {
             display: block;
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             float: left;
             margin-left: 4px;
             margin-top: 4px;
+        }
+        a{
+            margin:0px 20px;
+            display:inline-block;
+            text-decoration:none;
+            color:white;
         }
     </style>
 </head>
@@ -51,7 +57,7 @@
                             <!-- <label for="label2">Other <input id="label2" class="form-control" type="radio" name="label" value="other"></label> -->
                         </label>
                       </div>
-                      <b id="show_img_name" class="text-center">Path: {{ path }} Num: {{num}} Index {{index}}</b>
+                      <b id="show_img_name" class="text-center">Path: {{ path }} Num: {{num}} Index:{{index}}</b>
                     <input type='submit' id='retrieve' class="btn btn-default" style="width:100%;display: none;;"></button>
                 </form>
             </div>
@@ -61,8 +67,11 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10 image_display">
-                {% for image in images %}
-                <img src={{image}}/>
+                {% for id in range(0, num) %}
+                <a href="">
+                    <img src={{images[id]}} class="figure-img img-fluid rounded" alt={{id}}>
+                    <div class="caption">{{id}}.jpg</div>
+                </a>
                 {% endfor %}
             </div>
             <div class="col-md-1"></div>
