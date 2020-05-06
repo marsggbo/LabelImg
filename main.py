@@ -31,6 +31,7 @@ def main():
     try:
         data = path_imgs[index]
         path, images = data
+        print(f"path:{path}, num:{num}, index:{index}")
         return render_template('index.html', path=path, images=images, num=len(images), index=index)
     except (Exception, SystemExit, KeyboardInterrupt, GeneratorExit) as e:
         print(str(e))
