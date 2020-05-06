@@ -6,14 +6,17 @@ from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
-patients = sorted(os.listdir('./static/NCP/'))
+global HISTORY
+global IT_IMGs
+
+patients = sorted(os.listdir('./static/NCP/'), key=lambda x:int(x.split('/')[-1]))
 slices = {}
 for patient in patients:
     patient_path = f"./static/NCP/{patient}"
-    for scan in sorted(os.listdir(patient_path)):
+    for scan in sorted(os.listdir(patient_path), key=lambda x:int(x.split('/')[-1])):
         scan_path = f"{patient_path}/{scan}"
         imgs = []
-        for img in sorted(os.listdir(scan_path)):
+        for img in sorted(os.listdir(scan_path), key=lambda x:int(x.split('/')[-1].split('.')[0])):
             imgs.append(f"{scan_path}/{img}")
         slices[scan_path] = imgs
 
@@ -28,7 +31,7 @@ def main():
     try:
         data = path_imgs[index]
         path, images = data
-        return render_template('index.html', path=path, images=images, num=len(images))
+        return render_template('index.html', path=path, images=images, num=len(images), index=index)
     except (Exception, SystemExit, KeyboardInterrupt, GeneratorExit) as e:
         print(str(e))
 
