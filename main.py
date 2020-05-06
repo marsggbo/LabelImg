@@ -6,9 +6,6 @@ from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
-global HISTORY
-global IT_IMGs
-
 patients = sorted(os.listdir('./static/NCP/'))
 slices = {}
 for patient in patients:
