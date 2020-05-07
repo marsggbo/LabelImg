@@ -70,7 +70,7 @@
                 {% for id in range(0, num) %}
                 <a>
                     <img src={{images[id]}} class="figure-img img-fluid rounded" alt={{id}}>
-                    <div class="caption">{{id}}.jpg</div>
+                    <div class="caption">{{images[id].split('/')[-1]}}.jpg</div>
                 </a>
                 {% endfor %}
             </div>
