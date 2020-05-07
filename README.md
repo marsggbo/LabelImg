@@ -9,6 +9,22 @@ Using Flask to filter image
 - 回车键跳转
 
 
+# Structures
+
+- static
+  - NCP
+    - patient_id0
+      - scan_id0
+        - img0.jpg
+        - ...
+      - scan_id1
+      - ...
+    - patient_id1
+    - ...
+- templates
+  - index.html
+- main.py
+
 # Demo
 
 ![](./demo.jpg)
